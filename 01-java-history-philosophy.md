@@ -17,6 +17,18 @@ Team designed new language, originally called "Oak," goal: **write once, run on 
 
 Keep referring back to this philosophy — almost every Java design decision (why no multiple class inheritance, why strong typing, why checked exceptions) traces back to these four principles.
 
+Java is a **high-level, object-oriented programming language** developed by Sun Microsystems in 1995, spearheaded by James Gosling. It is widely used for building **desktop applications, web applications, mobile apps (especially Android), enterprise systems, and more**.
+
+Java is renowned for its **platform independence**, encapsulated in the phrase **"Write Once, Run Anywhere" (WORA)**. This is achieved through the use of **bytecode**, which is executed by the **Java Virtual Machine (JVM)**, making Java programs portable across different operating systems.
+
+Key Features of Java : -
+- **Object-Oriented**: Everything in Java is treated as an object, promoting clean and reusable code.
+- **Platform Independent**: Java programs can run on any device with a JVM installed.
+- **Simple and Secure**: Java eliminates complex features like pointers and includes built-in security mechanisms.
+- **Multithreading**: Java supports concurrent execution of tasks, making it suitable for complex applications.
+- **Robust and Reliable**: Java emphasizes error checking at both compile-time and runtime.
+- **Dynamic and Distributed**: Java adapts to evolving environments and supports distributed computing.
+
 ## Java's version history — why it matters, not just trivia
 
 Understanding the timeline explains why certain features exist in certain files of these notes, and clears up "why does this tutorial online look different from what I'm learning":
