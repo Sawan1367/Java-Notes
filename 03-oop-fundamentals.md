@@ -199,6 +199,8 @@ Practical rule: default to most restrictive (`private`), open up only as genuine
 
 **Why every class secretly extends `Object`**: Java needed some baseline guaranteed behavior for ANY object (default string representation, default comparison, etc), so it made `Object` the implicit root of every class hierarchy — guarantees these methods always exist, even if not overridden.
 
+- `getClass()` → Returns runtime class info.    
+- `finalize()` → Cleanup before garbage collection (deprecated now).
 - `toString()` — default prints an unreadable memory-address-based string; override for meaningful debug output.
 - `equals()` — default compares memory address (identity), same as `==`; override when you need CONTENT-based comparison (e.g. two different Person objects with same name/age should be "equal").
 - `hashCode()` — MUST be overridden alongside `equals()`: Java's hashing-based collections (HashMap, HashSet — file 06) rely on a strict contract: if two objects are `equals()`, they MUST return the same `hashCode()`. Breaking this contract silently corrupts HashMap/HashSet behavior — a very real, hard-to-diagnose bug if forgotten.

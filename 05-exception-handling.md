@@ -99,5 +99,11 @@ catch (Exception e) { }  // NEVER — silently swallows the exact problem except
 ```
 This recreates the EXACT problem exceptions were invented to solve (silently ignored errors) — explain this irony directly, makes the lesson stick. At an absolute minimum, log the exception (`e.printStackTrace()` for learning purposes; a proper logging framework in real projects) so the failure is at least visible somewhere.
 
+Exceptions were invented to **make failures visible** and force developers to deal with them. But when you write the above code. You’re doing the exact opposite: you’re **silently swallowing the error**. The program continues as if nothing happened, even though something went wrong. This recreates the very problem exceptions were designed to solve — hidden failures.
+###### 🔎 Why It’s Harmful
+- **Debugging nightmare**: The program misbehaves, but you have no clue why, because the error vanished.
+- **Data corruption risk**: If the exception was about I/O, transactions, or state changes, ignoring it can leave your system in an inconsistent state.
+- **Security issues**: Silently ignoring exceptions can mask authentication/authorization failures or input validation errors.
+- **Maintenance hazard**: Future developers (including you) won’t know an error occurred at all.
 ### Rethrowing and `throws` declarations — why a method signature can advertise failure
 A method that can't itself meaningfully handle a checked exception (e.g. a low-level data-access method has no sensible way to "recover" from a database being down) is allowed to simply declare `throws SQLException` and let the caller — who may have more context — decide how to handle it. This is a deliberate design choice: not every layer of a program is the RIGHT layer to handle every error, and Java's checked-exception system lets that responsibility be explicitly passed upward rather than forcing a premature, poorly-informed catch too early.
