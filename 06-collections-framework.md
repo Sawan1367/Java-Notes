@@ -64,9 +64,9 @@ Each key's `hashCode()` (file 03) is used to compute WHICH internal "bucket" (sm
 ### Useful Map methods that avoid manual null-checking boilerplate
 Before these existed, common patterns ("get a value, or a default if absent," "only insert if not already present," "update a running total for a key") required verbose manual `containsKey`/`get`/`put` sequences. These methods (added mainly Java 8) collapse that boilerplate into one call:
 ```java
-ages.getOrDefault("Mike", 0);                         // avoid manual null-check after get()
-ages.putIfAbsent("John", 30);                          // won't overwrite existing "John" entry
-ages.merge("John", 1, Integer::sum);                    // "increment, or insert 1 if absent" in one call
+ages.getOrDefault("Mike", 0); // avoid manual null-check after get()
+ages.putIfAbsent("John", 30); // won't overwrite existing "John" entry
+ages.merge("John", 1, Integer::sum); // "increment, or insert 1 if absent" in one call
 ages.forEach((name, age) -> System.out.println(name + ":" + age));
 ```
 
@@ -159,3 +159,39 @@ Sometimes a generic method needs to guarantee the type parameter supports SOME c
 }
 ```
 Wildcards (`List<? extends Number>`) solve a related but different problem: accepting a collection of an UNKNOWN-but-bounded type, useful when writing a method that should work with `List<Integer>`, `List<Double>`, etc, without needing a separate overload for each.
+
+```java
+// Bounded type parameter: ensures elements are comparable
+public static <T extends Comparable<T>> T max(List<T> list) { ... }
+
+// Wildcard: allows flexibility in method arguments
+public static void printNumbers(List<? extends Number> list) { ... }
+```
+
+```java
+public class Box<T> {
+    private T value;
+
+    public Box(T value) {
+        this.value = value;
+    }
+
+    // Instance generic method with its own type parameter <U>
+    public <U> void printPair(U other) {
+        System.out.println("Box contains: " + value + ", paired with: " + other);
+    }
+
+    public static void main(String[] args) {
+        // Create a Box holding an Integer
+        Box<Integer> intBox = new Box<>(42);
+        intBox.printPair("Hello");   // Pair Integer with String
+        intBox.printPair(3.14);      // Pair Integer with Double
+
+        // Create a Box holding a String
+        Box<String> strBox = new Box<>("Generics");
+        strBox.printPair(100);       // Pair String with Integer
+        strBox.printPair(true);      // Pair String with Boolean
+    }
+}
+```
+
